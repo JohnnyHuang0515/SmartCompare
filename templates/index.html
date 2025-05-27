@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCompare - 智慧比價小幫手</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    </head>
+<body>
+    <header>
+        <h1>SmartCompare</h1>
+        <p>輕鬆比價，聰明消費！</p>
+    </header>
+
+    <main>
+        <section class="search-section">
+            <form id="search-form">
+                <input type="text" id="keyword-input" placeholder="輸入商品名稱，例如：無線滑鼠" required>
+                <button type="submit">搜尋</button>
+            </form>
+            <div id="loading-message" class="hidden">載入中，請稍候...</div>
+            <div id="error-message" class="hidden error"></div>
+        </section>
+
+        <section class="results-section">
+            <h2>搜尋結果</h2>
+            <div id="product-list-container">
+                <p id="no-results-message">沒有找到相關商品。請嘗試其他關鍵字。</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 SmartCompare. All rights reserved.</p>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
