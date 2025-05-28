@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify, render_template
 import os # <--- 導入 os 模組
 from src.scraper.momo_scraper import MomoScraper
 from src.scraper.pchome_scraper import PChomeScraper
+from src.scraper.coupang_scraper import CoupangScraper
 from src.database import db_connector
 import threading
 from datetime import datetime, timedelta
@@ -86,7 +87,7 @@ def search_products():
                     scraper_instance.close_driver()
 
         threads = []
-        scrapers_to_run = [MomoScraper, PChomeScraper]
+        scrapers_to_run = [MomoScraper, PChomeScraper, CoupangScraper]
 
         for scraper_class in scrapers_to_run:
             thread = threading.Thread(target=run_scraper, args=(scraper_class, all_scraped_results, errors))
