@@ -10,7 +10,7 @@ from .base_scraper import BaseScraper # 導入 BaseScraper
 
 class CoupangScraper(BaseScraper):
     def __init__(self):
-        super().__init__("Coupang") # 調用父類別的初始化方法，設定平台名稱
+        super().__init__("coupang") # 調用父類別的初始化方法，設定平台名稱
         # self.driver = None # 驅動器在父類別中初始化
         # self.folderPath = 'momo_product' # 儲存到 json 可改為在 api 端處理
         # if not os.path.exists(self.folderPath):
