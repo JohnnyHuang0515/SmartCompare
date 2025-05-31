@@ -145,9 +145,6 @@ class PriceComparison {
                     return bMin - aMin;
                 });
                 break;
-            default: // relevance
-                // 保持原始順序
-                break;
         }
     }
 
