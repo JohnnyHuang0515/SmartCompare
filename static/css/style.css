@@ -412,7 +412,10 @@ header {
     border: 2px solid #ffffff40;
     border-radius: 50%;
     border-top-color: #ffffff;
-    animation: spin 1s ease-in-out infinite;
+}
+
+.loading-spinner.spinning {
+    animation: spin 1s ease-in-out infinite; /* 動畫只在這個 class 存在時才應用 */
 }
 
 @keyframes spin {

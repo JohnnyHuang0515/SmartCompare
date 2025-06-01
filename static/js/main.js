@@ -283,18 +283,20 @@ class PriceComparison {
         return div.innerHTML;
     }
 
-    showLoading(show) {
+    showLoading(isLoading) {
         const btnText = this.searchBtn.querySelector('.btn-text');
         const spinner = this.searchBtn.querySelector('.loading-spinner');
 
-        if (show) {
-            btnText.textContent = '搜尋中...';
-            spinner.classList.remove('hidden');
-            this.searchBtn.disabled = true;
+        if (isLoading) {
+            btnText.classList.add('hidden'); // 隱藏按鈕文字
+            spinner.classList.remove('hidden'); // 顯示 spinner
+            spinner.classList.add('spinning');  // 新增：讓 spinner 開始轉動
+            this.searchBtn.disabled = true; // 搜尋按鈕禁用
         } else {
-            btnText.textContent = '搜尋比價';
-            spinner.classList.add('hidden');
-            this.searchBtn.disabled = false;
+            btnText.classList.remove('hidden'); // 顯示按鈕文字
+            spinner.classList.add('hidden'); // 隱藏 spinner
+            spinner.classList.remove('spinning'); // 新增：停止 spinner 轉動 (移除動畫)
+            this.searchBtn.disabled = false; // 搜尋按鈕啟用
         }
     }
 
