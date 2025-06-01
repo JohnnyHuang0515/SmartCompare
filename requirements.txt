@@ -1,5 +1,5 @@
 Flask==2.3.2
-selenium==4.33.0 # 或您使用的版本
-webdriver-manager==4.0.2 # 或您使用的版本
-# 如果您使用了 pymysql，也請添加：
+selenium==4.33.0
+webdriver-manager==4.0.2
 pymysql==1.1.0
+cryptography==45.0.3
