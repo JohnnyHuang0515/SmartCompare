@@ -522,7 +522,6 @@ class PriceComparison {
             }
 
             item.innerHTML = `
-              <div class="price-block" style="display: flex; justify-content: space-between; align-items: center;">
                 <div class="price-info">
                   <span class="platform-name">${this.getPlatformIcon(priceEntry.platform)} ${priceEntry.platform}</span>
                   <span class="product-price ${index === 0 ? 'lowest' : ''}">NT$ ${priceEntry.price.toLocaleString()}</span>
@@ -533,7 +532,6 @@ class PriceComparison {
                    ${!priceEntry.is_available ? 'tabindex="-1"' : ''}>
                     ${priceEntry.is_available ? '🛒 購買' : '❌售罄'}
                 </a>
-              </div>
             `;
 
             // 添加購買連結點擊動畫
