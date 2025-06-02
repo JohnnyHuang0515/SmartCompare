@@ -5,87 +5,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmartCompare - 智慧比價小幫手</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+        </div>
+    </div>
+
+    <header class="header">
         <div class="container">
             <div class="header-content">
-                <h1 class="logo">SmartCompare</h1>
-                <p class="tagline">輕鬆比價，聰明消費！</p>
+                <div class="logo-container">
+                    <h1 class="logo">
+                        <span class="logo-icon">🛒</span>
+                        SmartCompare
+                    </h1>
+                    <div class="logo-glow"></div>
+                </div>
+                <p class="tagline">輕鬆比價，聰明消費！讓每一筆消費都物超所值</p>
             </div>
         </div>
     </header>
 
     <main class="container">
         <section class="search-section">
-            <form class="search-form" id="search-form">
-                <div class="search-input-group">
-                    <input
-                        type="text"
-                        class="search-input"
-                        id="keyword-input"
-                        placeholder="輸入商品名稱，例如：無線滑鼠、iPhone、筆電..."
-                        required
-                    >
+            <div class="search-card">
+                <div class="search-header">
+                    <h2>開始您的比價之旅</h2>
+                    <p>輸入商品名稱，我們為您找到最優惠的價格</p>
                 </div>
-                <button type="submit" class="search-btn" id="search-btn">
-                    <span class="btn-text">搜尋比價</span>
-                    <span class="loading-spinner hidden"></span>
-                </button>
-            </form>
 
-            <div class="filters">
-                <div class="filter-group">
-                    <label for="platform-filter">平台篩選：</label>
-                    <select class="filter-select" id="platform-filter">
-                        <option value="all">全部平台</option>
-                        <option value="momo">momo購物網</option>
-                        <option value="pchome">PChome</option>
-                        <option value="coupang">Coupang</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="price-range">價格區間：</label>
-                    <select class="filter-select" id="price-range">
-                        <option value="all">不限價格</option>
-                        <option value="0-1000">$1,000以下</option>
-                        <option value="1000-5000">$1,000-$5,000</option>
-                        <option value="5000-10000">$5,000-$10,000</option>
-                        <option value="10000+">$10,000以上</option>
-                    </select>
+                <form class="search-form" id="search-form">
+                    <div class="search-input-group">
+                        <div class="input-wrapper">
+                            <input
+                                type="text"
+                                class="search-input"
+                                id="keyword-input"
+                                placeholder="輸入商品名稱，例如：無線滑鼠、iPhone、筆電..."
+                                required
+                            >
+                            <div class="input-border-glow"></div>
+                        </div>
+                        <button type="submit" class="search-btn" id="search-btn">
+                            <span class="btn-text">🔍 搜尋比價</span>
+                            <span class="loading-spinner hidden"></span>
+                            <div class="btn-ripple"></div>
+                        </button>
+                    </div>
+                </form>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="platform-filter">
+                            <span class="filter-icon">🏪</span>
+                            平台篩選
+                        </label>
+                        <select class="filter-select" id="platform-filter">
+                            <option value="all">全部平台</option>
+                            <option value="momo">momo購物網</option>
+                            <option value="PChome">PChome</option>
+                            <option value="coupang">coupang</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="price-range">
+                            <span class="filter-icon">💰</span>
+                            價格區間
+                        </label>
+                        <select class="filter-select" id="price-range">
+                            <option value="all">不限價格</option>
+                            <option value="0-100">NT$ 100以下</option>
+                            <option value="101-500">NT$ 101-500</option>
+                            <option value="501-1000">NT$ 501-1,000</option>
+                            <option value="1001-above">NT$ 1,000以上</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </section>
 
         <div id="status-message" class="status-message hidden"></div>
 
-        <section class="results-section" id="results-section">
+        <section class="results-section hidden" id="results-section">
             <div class="results-header">
-                <h2 class="results-title">搜尋結果</h2>
+                <h2 class="results-title">
+                    <span class="title-icon">📊</span>
+                    搜尋結果
+                </h2>
                 <div class="sort-controls">
-                    <button class="sort-btn" data-sort="price-low">價格低→高</button>
-                    <button class="sort-btn" data-sort="price-high">價格高→低</button>
+                    <button class="sort-btn active" data-sort="relevance">
+                        <span class="sort-icon">⭐</span>
+                        相關性
+                    </button>
+                    <button class="sort-btn" data-sort="price-low">
+                        <span class="sort-icon">📈</span>
+                        價格低→高
+                    </button>
+                    <button class="sort-btn" data-sort="price-high">
+                        <span class="sort-icon">📉</span>
+                        價格高→低
+                    </button>
                 </div>
             </div>
 
             <div class="stats-bar hidden" id="stats-bar">
                 <div class="stat-item">
-                    <div class="stat-number" id="total-products">0</div>
-                    <div class="stat-label">找到商品</div>
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="total-products">0</div>
+                        <div class="stat-label">找到商品</div>
+                    </div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number" id="avg-savings">$0</div>
-                    <div class="stat-label">平均節省</div>
+                    <div class="stat-icon">💸</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="avg-savings">NT$ 0</div>
+                        <div class="stat-label">平均節省</div>
+                    </div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number" id="best-platform">-</div>
-                    <div class="stat-label">最優平台</div>
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="best-platform">-</div>
+                        <div class="stat-label">最優平台</div>
+                    </div>
                 </div>
             </div>
 
             <div class="product-grid" id="product-grid">
                 <div class="no-results" id="no-results">
-                    <div class="no-results-icon">🔍</div>
+                    <div class="no-results-animation">
+                        <div class="search-animation">
+                            <div class="magnifying-glass">
+                                <div class="glass"></div>
+                                <div class="handle"></div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="no-results-text">還沒有搜尋結果</div>
                     <div class="no-results-hint">輸入商品關鍵字開始比價吧！</div>
                 </div>
@@ -93,9 +159,16 @@
         </section>
     </main>
 
-    <footer>
+    <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 SmartCompare. All rights reserved.</p>
+            <div class="footer-content">
+                <p>&copy; 2024 SmartCompare. 讓比價變得更簡單</p>
+                <div class="footer-links">
+                    <a href="#">關於我們</a>
+                    <a href="#">使用條款</a>
+                    <a href="#">隱私政策</a>
+                </div>
+            </div>
         </div>
     </footer>
 
