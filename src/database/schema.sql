@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS prices (
     UNIQUE (product_id, platform, record_date)
 );
 
-CREATE INDEX idx_products_name ON products(name(255)); -- 對商品名稱建立索引，加速搜尋
+ -- 對商品名稱建立索引，加速搜尋
+CREATE INDEX idx_products_name ON products(name(255));
 CREATE INDEX idx_prices_product_id ON prices(product_id);
 CREATE INDEX idx_prices_platform ON prices(platform);
