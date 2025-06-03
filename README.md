@@ -2,10 +2,10 @@
 
 ## Project Overview
 
-SmartCompare is a web application developed to assist users in comparing product prices across major Taiwanese e-commerce platforms: momo, PChome, and Coupang.
+SmartCompare is a web application designed to help users compare product prices across major Taiwanese e-commerce platforms: momo, PChome, and Coupang.
 It is built with a Flask backend, web scraping modules for real-time data acquisition, and a MySQL database for efficient data storage and management.
 
-The application prioritizes recently scraped data stored in the database and only performs live scraping when necessary.
+The application prioritizes using recently cached data and initiates live scraping only when necessary.
 
 ## Features
 
@@ -26,7 +26,6 @@ SmartCompare/
 ├── .gitignore               # Git ignore rules
 ├── README.md                # Project documentation
 ├── requirements.txt         # Python dependencies
-
 ├── src/
 │   ├── __init__.py
 │   ├── api/
@@ -42,11 +41,9 @@ SmartCompare/
 │       ├── momo_scraper.py
 │       ├── pchome_scraper.py
 │       └── coupang_scraper.py
-
 ├── static/
 │   ├── css/style.css
 │   └── js/main.js
-
 └── templates/
     └── index.html
 ```
@@ -65,7 +62,7 @@ Ensure the following are installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/JohnnyHuang0515/SmartCompare.git
 cd SmartCompare
 ```
 
@@ -87,7 +84,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-If `requirements.txt` is unavailable, manually install the following:
+If `requirements.txt` is not available, manually install the following packages:
 
 * Flask
 * pymysql
@@ -116,7 +113,7 @@ Replace with your MySQL credentials. Ensure the user has privileges to create an
 
 #### b. Validate schema.sql
 
-Ensure `src/database/schema.sql` includes only `CREATE TABLE` statements.
+Ensure that `src/database/schema.sql` contains only `CREATE TABLE` statements and does not include any `CREATE DATABASE` or `USE` commands.
 
 #### c. Grant Database Privileges (if required)
 
@@ -137,22 +134,22 @@ venv\Scripts\activate
 source venv/bin/activate
 ```
 
-Navigate to the project root and run:
+From the project root directory, execute the following command:
 
 ```bash
 python run.py
 ```
 
-This will initialize the database and start the Flask development server (typically at [http://127.0.0.1:5000/](http://127.0.0.1:5000/)).
+Initializes the database and starts the Flask development server (typically at [http://127.0.0.1:5000/](http://127.0.0.1:5000/)).
 
 ## Usage
 
 1. Open [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in a web browser.
 2. Enter a product keyword and submit.
-3. The application will attempt to fetch fresh data from the database.
-4. If not found or outdated, scraping is triggered.
+3. The application checks the database for existing results.
+4. If data is outdated or missing, it automatically triggers real-time scraping.
 5. Results are displayed and saved for future use.
 
 ## Summary
 
-SmartCompare provides a practical solution for efficiently comparing product prices across multiple platforms with minimal manual effort.
+SmartCompare offers a streamlined and effective solution for comparing product prices across multiple e-commerce platforms.
