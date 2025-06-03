@@ -1,45 +1,41 @@
 # SmartCompare: E-commerce Product Price Comparison Tool
 
-##  Project Overview
+## Project Overview
 
-**SmartCompare** is a web application designed to help users compare product prices across major Taiwanese e-commerce platforms: **momo**, **PChome**, and **Coupang**.  
-It features a **Flask** backend, **web scraping modules** for real-time data fetching, and a **MySQL** database for efficient product data storage.
+SmartCompare is a web application developed to assist users in comparing product prices across major Taiwanese e-commerce platforms: momo, PChome, and Coupang.
+It is built with a Flask backend, web scraping modules for real-time data acquisition, and a MySQL database for efficient data storage and management.
 
-> The app prioritizes recently scraped data from the database and triggers live scraping only when data is outdated or unavailable.
+The application prioritizes recently scraped data stored in the database and only performs live scraping when necessary.
 
----
+## Features
 
-##  Features
+* Product Search — Search for items using keywords.
+* Real-Time Scraping — Retrieves current prices from momo, PChome, and Coupang.
+* Database Integration — Stores and retrieves product data to minimize redundant scraping.
+* Data Freshness — Falls back to live scraping if existing data is older than a configurable threshold (default: 1 hour).
+* Price Comparison — Displays prices from multiple platforms and highlights the lowest.
+* Data Summary — Provides a summary of results, including product count, potential savings, and best-priced platform.
+* Automatic Database Initialization — Automatically creates the required database and tables upon first launch.
 
--  **Product Search** — Search for items using keywords.
--  **Real-Time Scraping** — Fetches up-to-date prices from momo, PChome, and Coupang.
--  **Database Integration** — Avoids redundant scraping by storing and retrieving data efficiently.
--  **Data Freshness** — Falls back to scraping if data is older than 1 hour (configurable).
--  **Price Comparison** — Displays multi-platform prices and highlights the lowest.
--  **Data Summary** — Shows total products, potential savings, and the platform with the most deals.
--  **Auto DB Initialization** — Automatically sets up the database and tables on first launch.
-
----
-
-##  Project Structure
+## Project Structure
 
 ```
 SmartCompare/
-├── config.ini               # MySQL and other configurations
-├── run.py                   # App entry point
-├── .gitignore               # Ignored files
-├── README.md                # This documentation file
+├── config.ini               # Configuration file for MySQL and application settings
+├── run.py                   # Main application entry point
+├── .gitignore               # Git ignore rules
+├── README.md                # Project documentation
 ├── requirements.txt         # Python dependencies
 
-├── src/                     # Core source code
+├── src/
 │   ├── __init__.py
 │   ├── api/
 │   │   ├── __init__.py
-│   │   └── app.py           # Flask app routes and logic
+│   │   └── app.py           # Flask routes and handlers
 │   ├── database/
 │   │   ├── __init__.py
-│   │   ├── db_connector.py  # DB connection & operations
-│   │   └── schema.sql       # DB schema (CREATE TABLE only)
+│   │   ├── db_connector.py  # Handles DB connections and operations
+│   │   └── schema.sql       # Table definitions
 │   └── scraper/
 │       ├── __init__.py
 │       ├── base_scraper.py
@@ -47,28 +43,24 @@ SmartCompare/
 │       ├── pchome_scraper.py
 │       └── coupang_scraper.py
 
-├── static/                  # Static frontend assets
+├── static/
 │   ├── css/style.css
 │   └── js/main.js
 
 └── templates/
-    └── index.html           # Main HTML template
+    └── index.html
 ```
 
----
+## Setup and Installation
 
-##  Setup & Installation
+### Prerequisites
 
-###  Prerequisites
+Ensure the following are installed:
 
-Make sure the following are installed:
-
-- Python 3.8+
-- MySQL Server (Community Edition)
-- MySQL Client (e.g., MySQL Workbench or CLI)
-- Google Chrome (required by Selenium)
-
----
+* Python 3.8+
+* MySQL Server
+* MySQL Client (e.g., MySQL Workbench or terminal client)
+* Google Chrome (required for Selenium)
 
 ### 1. Clone the Repository
 
@@ -77,9 +69,7 @@ git clone <your-repository-url>
 cd SmartCompare
 ```
 
----
-
-### 2. Set Up Virtual Environment (Recommended)
+### 2. Set Up Virtual Environment
 
 ```bash
 python -m venv venv
@@ -91,31 +81,28 @@ venv\Scripts\activate
 source venv/bin/activate
 ```
 
----
-
 ### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-> If `requirements.txt` is missing, install manually and run:  
-> `pip freeze > requirements.txt`
+If `requirements.txt` is unavailable, manually install the following:
 
-Core libraries:
+* Flask
+* pymysql
+* selenium
+* webdriver\_manager
 
-- `Flask`
-- `pymysql`
-- `selenium`
-- `webdriver_manager`
+Then generate the file:
 
----
+```bash
+pip freeze > requirements.txt
+```
 
 ### 4. Configure MySQL
 
-#### a. `config.ini` File
-
-Create a `config.ini` in the project root with:
+#### a. Create config.ini
 
 ```ini
 [DB_CONFIG]
@@ -125,76 +112,20 @@ DB_PASSWORD=your_mysql_password
 DB_NAME=smartcompare_db
 ```
 
-Replace the values accordingly. Ensure `DB_USER` has **privileges to create/manage tables**.
+Replace with your MySQL credentials. Ensure the user has privileges to create and manage tables.
 
-#### b. Verify `schema.sql`
+#### b. Validate schema.sql
 
-Make sure `src/database/schema.sql` contains **only CREATE TABLE statements**, no `CREATE DATABASE` or `USE`.
+Ensure `src/database/schema.sql` includes only `CREATE TABLE` statements.
 
-Example:
-
-```sql
-CREATE TABLE IF NOT EXISTS products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(500) NOT NULL,
-    image_url VARCHAR(1000),
-    brand VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS prices (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT NOT NULL,
-    platform VARCHAR(50) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    product_url VARCHAR(255) NOT NULL,
-    is_available BOOLEAN DEFAULT TRUE,
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (product_id) REFERENCES products(id),
-    UNIQUE KEY (product_id, platform, product_url)
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-```
-
-#### c. Grant MySQL Privileges (If Needed)
+#### c. Grant Database Privileges (if required)
 
 ```sql
 GRANT ALL PRIVILEGES ON smartcompare_db.* TO 'your_mysql_username'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-> Even if the DB doesn't exist yet, this ensures access when it’s auto-created.
-
----
-
-### 5. Ensure `__init__.py` Exists
-
-Check or create empty `__init__.py` files in:
-
-- `src/`
-- `src/api/`
-- `src/database/`
-- `src/scraper/`
-
----
-
-### 6. Chrome WebDriver for Selenium
-
-Make sure `webdriver_manager` is installed so it auto-handles ChromeDriver versioning.
-
----
-
-### 7. (Optional) Clean Existing Database
-
-If you've run the app before and want a clean slate:
-
-```sql
-DROP DATABASE IF EXISTS smartcompare_db;
-```
-
----
-
-##  Running the Application
+## Running the Application
 
 Activate your virtual environment:
 
@@ -206,22 +137,22 @@ venv\Scripts\activate
 source venv/bin/activate
 ```
 
-Navigate to project root and run:
+Navigate to the project root and run:
 
 ```bash
 python run.py
 ```
 
-The app will initialize the DB and start a Flask dev server (usually at http://127.0.0.1:5000/).
+This will initialize the database and start the Flask development server (typically at [http://127.0.0.1:5000/](http://127.0.0.1:5000/)).
 
----
+## Usage
 
-##  Usage
+1. Open [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in a web browser.
+2. Enter a product keyword and submit.
+3. The application will attempt to fetch fresh data from the database.
+4. If not found or outdated, scraping is triggered.
+5. Results are displayed and saved for future use.
 
-1. Open browser at `http://127.0.0.1:5000/`
-2. Search for a product keyword
-3. App checks for recent database results
-4. If none found or data is stale, live scraping is triggered
-5. Results display once complete
+## Summary
 
----
+SmartCompare provides a practical solution for efficiently comparing product prices across multiple platforms with minimal manual effort.
